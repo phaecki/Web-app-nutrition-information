@@ -1,2 +1,2 @@
 # Web-app-nutrition-information
-Web app displaying nutritional information for over 1,000 foods.
+The FoodExplorer web app lets you easily view the nutritional information of over 1,000 foods.

@@ -13,11 +13,16 @@ load("data/en.RData")
 
 ui <- fluidPage(
   
+  HTML("
+       <style>a:hover {text-decoration: none;}</style>
+       "), 
+  
   tags$head(
+    
+    # CSS einbinden ------------------------------------------------------------
     
     includeCSS("css/style.css"),
     includeCSS("css/colors/sky.css")
-    
   ),
   
   # Header ---------------------------------------------------------------------
@@ -25,7 +30,8 @@ ui <- fluidPage(
   tags$header(
     
     tags$br(),
-    tags$img(src = "logo.png", alt = "FoodExplorer by NXTLVLETE", 
+    tags$img(src = "logo.png", 
+             alt = "FoodExplorer by NXTLVLETE", 
              height = 56),
     tags$br(),
     tags$br()
@@ -37,8 +43,10 @@ ui <- fluidPage(
     
     # Erste Registerkarte ------------------------------------------------------
     
-    tabPanel(title = "English",
-             setBackgroundImage(src = "bg.webp", shinydashboard = FALSE),
+    tabPanel(
+      title = "English",
+      setBackgroundImage(src = "bg.webp", 
+                         shinydashboard = FALSE),
              
              # Titel der Anwendung ---------------------------------------------
              
@@ -51,16 +59,23 @@ ui <- fluidPage(
                  p("Select the category and two features of the food you'd like 
                    to see in detail and press 'Show'."),
                  br(),
-                 selectInput(inputId = "selMainCat", label = "Select main category", 
+                 selectInput(inputId = "selMainCat", 
+                             label = "Select main category", 
                              choices = levels(food_02$MainCategory), 
                              selected = "Meat, fish and eggs"),
                  uiOutput(outputId = "uiCat"),
-                 selectInput(inputId = "selX", label = "Feature 1", 
-                             choices = varFeat, selected = "Protein (g)"),
-                 selectInput(inputId = "selY", label = "Feature 2", 
-                             choices = varFeat, selected = "Energy (kcal)"),
+                 selectInput(inputId = "selX", 
+                             label = "Feature 1", 
+                             choices = varFeat, 
+                             selected = "Protein (g)"),
+                 selectInput(inputId = "selY", 
+                             label = "Feature 2", 
+                             choices = varFeat, 
+                             selected = "Energy (kcal)"),
                  br(),
-                 actionButton(inputId = "btnGo", label = "Show")
+                 actionButton(class = "btn btn-sky rounded", 
+                              inputId = "btnGo", 
+                              label = "Show")
                ),
                
                # Diagramme anzeigen --------------------------------------------
@@ -68,7 +83,8 @@ ui <- fluidPage(
                mainPanel(
                  htmlOutput(outputId = "htmlNote"),
                  br(),
-                 plotOutput(outputId = "plotScatterChart", hover = "brushScatterChart"
+                 plotOutput(outputId = "plotScatterChart", 
+                            hover = "brushScatterChart"
                  # brush = brushOpts(id = "brushScatterChart", fill = "#87ceeb", stroke = "#a6979c")
                             ),
                  br(),
@@ -99,12 +115,18 @@ ui <- fluidPage(
                              choices = levels(food_02_de$Hauptkategorie), 
                              selected = "Fleisch, Fisch und Eier"),
                  uiOutput(outputId = "uiCat_de"),
-                 selectInput(inputId = "selX_de", label = "Merkmal 1", 
-                             choices = varMerkmal, selected = "Protein (g)"),
-                 selectInput(inputId = "selY_de", label = "Merkmal 2", 
-                             choices = varMerkmal, selected = "Energie (kcal)"),
+                 selectInput(inputId = "selX_de", 
+                             label = "Merkmal 1", 
+                             choices = varMerkmal, 
+                             selected = "Protein (g)"),
+                 selectInput(inputId = "selY_de", 
+                             label = "Merkmal 2", 
+                             choices = varMerkmal, 
+                             selected = "Energie (kcal)"),
                  br(),
-                 actionButton(inputId = "btnGo_de", label = "Anzeigen")
+                 actionButton(class = "btn btn-sky rounded", 
+                              inputId = "btnGo_de", 
+                              label = "Anzeigen")
                ),
                
                # Diagramme anzeigen --------------------------------------------
@@ -112,7 +134,8 @@ ui <- fluidPage(
                mainPanel(
                  htmlOutput(outputId = "htmlNote_de"),
                  br(),
-                 plotOutput(outputId = "plotScatterChart_de", hover = "brushScatterChart_de"
+                 plotOutput(outputId = "plotScatterChart_de", 
+                            hover = "brushScatterChart_de"
                  # brush = brushOpts(id = "brushScatterChart_de", fill = "#87ceeb", stroke = "#a6979c")
                             ),
                  br(),
@@ -133,12 +156,12 @@ ui <- fluidPage(
                       withTags({
                         div(
                           h2("Sources"),
-                          br(),
                           p("Data source:", 
                             a(href = "https://naehrwertdaten.ch/en/", 
-                              "naehrwertdaten.ch/en")),
+                              class = "hover link-primary", "naehrwertdaten.ch/en")),
                           p("Getting started with Shiny:", 
-                            a(href = "https://shiny.posit.co", "shiny.posit.co")),
+                            a(href = "https://shiny.posit.co", 
+                              class = "hover link-primary", "shiny.posit.co")),
                           br(),
                           h3("Interpretation of food composition data"),
     p("All data refer to 100 g edible portion for solid foods or to 100 ml for 
@@ -155,7 +178,7 @@ ui <- fluidPage(
                           br()
                         )
                       })
-                      ),
+               ),
                
                column(width = 1),
                
@@ -163,12 +186,12 @@ ui <- fluidPage(
                       withTags({
                         div(
                           h2("Quellenangaben"),
-                          br(),
                           p("Datenquelle:",
                             a(href = "https://naehrwertdaten.ch/de/", 
-                              "naehrwertdaten.ch/de")),
+                              class = "hover link-primary", "naehrwertdaten.ch/de")),
                           p("Erste Schritte mit Shiny (in Englisch):", 
-                            a(href = "https://shiny.posit.co", "shiny.posit.co")),
+                            a(href = "https://shiny.posit.co", 
+                              class = "hover link-primary", "shiny.posit.co")),
                           br(),
                           h3("Interpretation von Nährwertangaben"),
     p("Sämtliche Angaben beziehen sich jeweils auf 100 g essbaren Anteil bei 
@@ -185,7 +208,7 @@ ui <- fluidPage(
       Nährstoffveränderungen kommen.")
                         )
                       })
-                      ),
+               ),
                
                column(width = 1)
                
@@ -195,12 +218,25 @@ ui <- fluidPage(
   
   # Footer ---------------------------------------------------------------------
   
-  tags$footer(
+  fluidRow(
     
-    tags$br(),
-    tags$p("Shiny app developed by", 
-           a(href = "https://www.datavisual.ch/index.html", "DataVisual."), 
-           "All rights reserved.")
+    column(
+      width = 12, 
+      withTags({
+        div(
+          footer(
+            div(class = "pt-10 pb-7", 
+                div(class = "d-md-flex align-items-center 
+                    justify-content-between", 
+                    p(class = "mb-2 mb-lg-0", 
+                      "Shiny app developed by ", 
+                      a(class = "a-sky", 
+                        href="https://www.datavisual.ch/index.html", 
+                        class = "hover link-primary", "DataVisual."), 
+                      "All rights reserved."))))
+        )
+      })
+    )
   )
 )
 
@@ -301,7 +337,8 @@ server <- function(input, output) {
     ggplot(varFoodSubset(), mapping = aes(x = .data[[input$selX]], 
                                           y = .data[[input$selY]])) +
       geom_point(color = "#87ceeb", size = 3) +
-      labs(title = "Plot of two features", 
+      labs(title = paste0("Plot of ", sapply(strsplit(x = input$selX, " [\\(]"), '[', 1), 
+                          " and ", sapply(strsplit(x = input$selY, " [\\(]"), '[', 1)), 
            caption = "Created by DataVisual.ch") +
       theme_classic() +
       theme(plot.title = element_text(family = "Helvetica", face = "bold", 
@@ -316,7 +353,9 @@ server <- function(input, output) {
     ggplot(varFoodSubset_de(), mapping = aes(x = .data[[input$selX_de]], 
                                              y = .data[[input$selY_de]])) +
       geom_point(color = "#87ceeb", size = 3) +
-      labs(title = "Diagramm zweier Merkmale", 
+      labs(title = paste0(sapply(strsplit(x = input$selX_de, " [\\(]"), '[', 1), 
+                          "/", sapply(strsplit(x = input$selY_de, " [\\(]"), '[', 1), 
+                          "-Diagramm"), 
            caption = "Erstellt von DataVisual.ch") +
       theme_classic() +
       theme(plot.title = element_text(family = "Helvetica", face = "bold", 
@@ -407,7 +446,7 @@ server <- function(input, output) {
                            y = varMeanFeat)) +
       geom_col(fill = "#87ceeb") +
       coord_flip() +
-      labs(title = paste0("Chart of ", input$selX) , 
+      labs(title = paste0("Chart of ", sapply(strsplit(x = input$selX, " [\\(]"), '[', 1)), 
            subtitle = "Average value of the feature", 
            caption = "Created by DataVisual.ch",
            x = "Food category", 
@@ -436,7 +475,8 @@ server <- function(input, output) {
                            y = varMeanFeat_de)) +
       geom_col(fill = "#87ceeb") +
       coord_flip() +
-      labs(title = paste0("Diagramm für ", input$selX_de) , 
+      labs(title = paste0(sapply(strsplit(x = input$selX_de, " [\\(]"), '[', 1), 
+                          "-Diagramm"), 
            subtitle = "Durchschnittswert des Merkmals", 
            caption = "Erstellt von DataVisual.ch",
            x = "Lebensmittelgruppe", 
